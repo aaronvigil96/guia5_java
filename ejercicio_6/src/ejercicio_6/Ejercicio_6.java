@@ -13,11 +13,14 @@ public class Ejercicio_6 {
         int[] columnas = new int[3];
         boolean filasBoolean = false;
         boolean columnasBoolean = false;
+        boolean diagonalesBoolean = false;
+        int primerDiagonal = 0;
+        int segundaDiagonal = 0;
         
         //Llenar matriz
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz.length; j++) {
-                matriz[i][j] = (int)(Math.random() * 2 + 1);
+                matriz[i][j] = (int)(Math.random() * 1 + 4);
             }
         }
         
@@ -38,6 +41,12 @@ public class Ejercicio_6 {
             contador += 1;
         }while(contador < 3);
         
+        //Diagonales
+        //1 normal
+        //2 otra
+        primerDiagonal = diagonales(matriz, 1);
+        segundaDiagonal = diagonales(matriz, 2);
+        
         //Comparo filas y columnas
         if(filas[0] == filas[1] && filas[0] == filas[2]){
             filasBoolean = true;
@@ -45,9 +54,12 @@ public class Ejercicio_6 {
         if(columnas[0] == columnas[1] && columnas[0] == columnas[2]){
             columnasBoolean = true;
         }
-        System.out.println(filasBoolean);
-        System.out.println(columnasBoolean);
-        diagonal(matriz,2);
+        if(primerDiagonal == segundaDiagonal){
+            diagonalesBoolean = true;
+        }
+        if(filasBoolean && columnasBoolean && diagonalesBoolean){
+            System.out.println("El cubo es magico");
+        }
     }
     
     public static int filas(int[][] matriz,int fila){
@@ -74,10 +86,10 @@ public class Ejercicio_6 {
         return contador;
     }
     
-    public static void diagonal(int[][] matriz, int diagonal){
-        //1 normal
-        //2 al revés
+    public static int diagonales(int[][] matriz, int diagonal){
+       
         int contador = 0;
+        
         if(diagonal == 1){
             for (int i = 0; i < matriz.length; i++) {
                 for (int j = 0; j < matriz.length; j++) {
@@ -87,12 +99,12 @@ public class Ejercicio_6 {
                 }
             }
         }else if(diagonal == 2){
+            int j = 0;
             for (int i = matriz.length - 1; i >= 0; i--) {
-                for (int j = matriz.length - 1; j >= 0; j--) {
-                    System.out.print(matriz[i][j] + " ");
-                }
-                System.out.println("");
+                contador = contador + matriz[i][j];
+                j++;
             }
         }
+        return contador;
     }
 }
